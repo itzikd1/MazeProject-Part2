@@ -40,7 +40,6 @@ public class BestFirstSearch extends ASearchingAlgorithm {
      */
 
     @Override
-    //TODO make sure comparator works
     public Solution solve(ISearchable domain) {
         if (domain == null)
             return null;

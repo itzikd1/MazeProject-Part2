@@ -1,5 +1,4 @@
 package algorithms.search;
-//TODO need to understand what are we doing with cost.
 
 import java.util.Stack;
 
