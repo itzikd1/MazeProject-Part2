@@ -30,6 +30,7 @@ public class Solution {
 
     /**
      * return solution array
+     *
      * @return solution - list with all solution steps
      */
 

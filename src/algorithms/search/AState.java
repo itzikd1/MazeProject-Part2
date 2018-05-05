@@ -1,5 +1,4 @@
 package algorithms.search;
-//TODO change names to normal names instead of x and stuff like that Shift+R in BFS\DFS\BFS2
 
 /**
  * abstract class to describe a state in current problem
@@ -36,7 +35,7 @@ public abstract class AState {
      */
 
     public void setCost(double costI) {
-        this.cost=costI;
+        this.cost = costI;
     }
 
     /**

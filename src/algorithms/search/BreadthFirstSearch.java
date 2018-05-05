@@ -13,12 +13,13 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
     public BreadthFirstSearch() {
         super();
         this.name = "BreadthFirstSearch"; //name = BFS
-        this.numberOfNodes=0;
+        this.numberOfNodes = 0;
 
     }
 
     /**
      * Solve with BFS
+     *
      * @param domain - get a searchable state and solve it
      * @return - solution to domain problem
      */
@@ -33,21 +34,22 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         domain.changeVisitTrue(domain.getStartState());
         numberOfNodes++;
         Solution Solu; //new solution
-        Solu = FindSol(StepsGo,domain);
+        Solu = FindSol(StepsGo, domain);
         return Solu;
     }
 
     /**
      * FindSol function - to get solution
+     *
      * @param StepsGo - get queue with start state and start going over it
      * @return - solution to domain problem
      */
 
     private Solution FindSol(Queue<AState> StepsGo, ISearchable domain) {
-        if (StepsGo==null)
+        if (StepsGo == null)
             return null;
         Solution Solu; //new solution
-        ArrayList<AState> allN;
+        ArrayList<AState> MyNeighbours;
         while (StepsGo.size() != 0) { //as long as there are steps to do
             AState temp = StepsGo.poll(); //get a state from queue
             if (domain.getGoalState().equals(temp)) { //if state equal to end state
@@ -56,24 +58,21 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                 domain.ResetVisit(); //reset visited fields
                 return Solu; //return solution
             }
-            allN = domain.getAllPossibleStates(temp);
-            for (int i = 0; i < allN.size(); i++) {
-                if (!domain.isVisited(allN.get(i))) {// new state found
+            MyNeighbours = domain.getAllPossibleStates(temp);
+            for (int i = 0; i < MyNeighbours.size(); i++) {
+                if (!domain.isVisited(MyNeighbours.get(i))) {// new state found
                     numberOfNodes++;
-                    domain.changeVisitTrue(allN.get(i));
-                    allN.get(i).cameFrom = temp; //updates its parent
-                    StepsGo.add(allN.get(i));
+                    domain.changeVisitTrue(MyNeighbours.get(i));
+                    MyNeighbours.get(i).cameFrom = temp; //updates its parent
+                    StepsGo.add(MyNeighbours.get(i));
                 }
-                if (allN.get(i).equals(domain.getGoalState()))
-                {
-                    allN.get(i).cameFrom = temp;
+                if (MyNeighbours.get(i).equals(domain.getGoalState())) {
+                    MyNeighbours.get(i).cameFrom = temp;
                     //domain.setGoalState(allN.get(i)); //set end state
-                    Solu = finalSolution(allN.get(i)); //function to add the path inside solu Solution
+                    Solu = finalSolution(MyNeighbours.get(i)); //function to add the path inside solu Solution
                     domain.ResetVisit(); //reset visited fields
                     return Solu; //return solution
                 }
-
-
 
 
             }

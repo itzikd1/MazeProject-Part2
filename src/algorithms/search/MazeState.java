@@ -7,6 +7,7 @@ public class MazeState extends AState {
 
     /**
      * constructor of MazeState
+     *
      * @param row and column of maze
      */
 
@@ -19,6 +20,7 @@ public class MazeState extends AState {
 
     /**
      * toString - print the MazeState
+     *
      * @return string describes position in maze
      */
 
@@ -31,6 +33,7 @@ public class MazeState extends AState {
 
     /**
      * getter and setter of rows and columns
+     *
      * @return current state's row and column
      */
 
@@ -44,7 +47,8 @@ public class MazeState extends AState {
 
     /**
      * equable function to compare between mazeState's
-     * @param  o - object t compare
+     *
+     * @param o - object t compare
      */
 
     public boolean equals(Object o) {
