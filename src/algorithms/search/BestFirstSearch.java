@@ -79,7 +79,7 @@ public class BestFirstSearch extends ASearchingAlgorithm {
                 if (!domain.isVisited(allN.get(i))) {// new state found
                     allN.get(i).cameFrom = temp; //updates its parent
                     numberOfNodes++;
-                    if (allN.get(i).equals(domain.getGoalState()))//TODO MAYBE CAN DELETE THIS FROM THE WHILE
+                    if (allN.get(i).equals(domain.getGoalState()))
                     {
                         domain.setGoalState(allN.get(i)); //set end state
                         Solu = finalSolution(domain.getGoalState()); //function to add the path inside solu Solution

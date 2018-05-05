@@ -64,7 +64,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                     allN.get(i).cameFrom = temp; //updates its parent
                     StepsGo.add(allN.get(i));
                 }
-                if (allN.get(i).equals(domain.getGoalState()))//TODO MAYBE CAN DELETE THIS FROM THE WHILE
+                if (allN.get(i).equals(domain.getGoalState()))
                 {
                     allN.get(i).cameFrom = temp;
                     //domain.setGoalState(allN.get(i)); //set end state

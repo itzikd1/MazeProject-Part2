@@ -119,7 +119,6 @@ public class SearchableMaze implements ISearchable {
      */
 
     @Override
-//TODO add diagonal
     public ArrayList<AState> getAllPossibleStates(AState s) {
         ArrayList<AState> temp = new ArrayList<AState>(); //array to keep possible states
         ArrayList<AState> tempD; //array to keep Diagnoal states
@@ -130,12 +129,10 @@ public class SearchableMaze implements ISearchable {
             mazestate = ((MazeState) s);
             int x = mazestate.getRow();
             int y = mazestate.getCol();
+            MazeState TempAdd;
             //TODO remove duplicate code into 1 function
             //check where neighbors are legal (not out of array and there value is 0)
-            if (isLegal(x - 1, y))
-                if (maze.getCellValue(x - 1, y) == 0) {
-                    tempM = new MazeState(x - 1, y);
-                    tempM.setCost(1);
+            if (CheckLegal(x - 1, y)!=null)
                     temp.add(tempM);
                 }
             if (isLegal(x + 1, y))
@@ -160,11 +157,19 @@ public class SearchableMaze implements ISearchable {
             tempD = getAllDiagnol(x, y);
             for (int i = 0; i < tempD.size(); i++)
                 temp.add(tempD.get(i));
-            //foreach, add diagnols to temp
-
-
         }
         return temp;
+    }
+
+    private MazeState CheckLegal(int x, int y) {
+        MazeState tempM;
+        if (isLegal(x, y))
+            if (maze.getCellValue(x, y) == 0) {
+                tempM = new MazeState(x, y);
+                tempM.setCost(1);
+                return tempM;
+            }
+            return null;
     }
 
     /**
@@ -176,7 +181,7 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public boolean isVisited(AState visit) {
-        if (visit != null && ((MazeState) visit).getRow()<maze.numOfRows() && ((MazeState) visit).getCol()<maze.numOfColumns())
+        if (visit != null && ((MazeState) visit).getRow() < maze.numOfRows() && ((MazeState) visit).getCol() < maze.numOfColumns())
             return visitedMap[((MazeState) visit).getRow()][((MazeState) visit).getCol()];
         else
             return false;
