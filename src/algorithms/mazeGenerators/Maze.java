@@ -74,9 +74,10 @@ public class Maze {
 
     /**
      * change value of cell in maze
-     * @param row - row of maze
+     *
+     * @param row    - row of maze
      * @param column - column of maze
-     * @param value - value to change to
+     * @param value  - value to change to
      */
 
     public void changeCellValue(int row, int column, int value) {

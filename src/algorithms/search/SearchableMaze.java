@@ -77,7 +77,7 @@ public class SearchableMaze implements ISearchable {
         return false;
     }
 
-    public ArrayList<AState> getAllDiagnol(int x, int y) {
+    public ArrayList<AState> getAllDiagonal(int x, int y) {
         ArrayList<AState> temp = new ArrayList<AState>();
         MazeState tempM;
         if (isLegal(x - 1, y - 1) && visitedMap[x - 1][y - 1] == false && maze.getCellValue(x - 1, y - 1) == 0)
@@ -121,7 +121,7 @@ public class SearchableMaze implements ISearchable {
     @Override
     public ArrayList<AState> getAllPossibleStates(AState s) {
         ArrayList<AState> temp = new ArrayList<AState>(); //array to keep possible states
-        ArrayList<AState> tempD; //array to keep Diagnoal states
+        ArrayList<AState> tempD; //array to keep Diagonal states
         MazeState mazestate;
         MazeState tempM;
         if (s != null && s instanceof MazeState) //make sure State is a MazeState
@@ -129,37 +129,32 @@ public class SearchableMaze implements ISearchable {
             mazestate = ((MazeState) s);
             int x = mazestate.getRow();
             int y = mazestate.getCol();
-            MazeState TempAdd;
-            //TODO remove duplicate code into 1 function
-            //check where neighbors are legal (not out of array and there value is 0)
-            if (CheckLegal(x - 1, y)!=null)
-                    temp.add(tempM);
-                }
-            if (isLegal(x + 1, y))
-                if (maze.getCellValue(x + 1, y) == 0) {
-                    tempM = new MazeState(x + 1, y);
-                    tempM.setCost(1);
-                    temp.add(tempM);
-                }
-
-            if (isLegal(x, y - 1))
-                if (maze.getCellValue(x, y - 1) == 0) {
-                    tempM = new MazeState(x, y - 1);
-                    tempM.setCost(1);
-                    temp.add(tempM);
-                }
-            if (isLegal(x, y + 1))
-                if (maze.getCellValue(x, y + 1) == 0) {
-                    tempM = new MazeState(x, y + 1);
-                    tempM.setCost(1);
-                    temp.add(tempM);
-                }
-            tempD = getAllDiagnol(x, y);
+            MazeState TempAdd; //temp mazestate
+            TempAdd = CheckLegal(x - 1, y); //check if legal to add
+            if (TempAdd != null) //if it is
+                temp.add(TempAdd); //add to arraylist
+            TempAdd = CheckLegal(x + 1, y);
+            if (TempAdd != null)
+                temp.add(TempAdd);
+            TempAdd = CheckLegal(x, y - 1);
+            if (TempAdd != null)
+                temp.add(TempAdd);
+            TempAdd = CheckLegal(x, y + 1);
+            if (TempAdd != null)
+                temp.add(TempAdd);
+            tempD = getAllDiagonal(x, y); //get all diagonal states
             for (int i = 0; i < tempD.size(); i++)
-                temp.add(tempD.get(i));
+                temp.add(tempD.get(i)); //add them to array
         }
         return temp;
     }
+
+    /**
+     * check if state is legal or not
+     *
+     * @param x,y - current x,y location from user
+     * @return mazestate if legal, else null
+     */
 
     private MazeState CheckLegal(int x, int y) {
         MazeState tempM;
@@ -169,7 +164,7 @@ public class SearchableMaze implements ISearchable {
                 tempM.setCost(1);
                 return tempM;
             }
-            return null;
+        return null;
     }
 
     /**

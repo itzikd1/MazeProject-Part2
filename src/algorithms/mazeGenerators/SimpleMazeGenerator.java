@@ -5,7 +5,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
     /**
      * generate a maze and randomly fill with 0's and 1's
-     * creates a simple maze and makes sure it has a solution
+     * creates a maze and makes sure it has a solution
      */
 
     @Override

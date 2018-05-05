@@ -17,8 +17,9 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * generate a maze with all 1's
-     * @param columns  - columns of maze
-     * @param rows  - rows of maze
+     *
+     * @param columns - columns of maze
+     * @param rows    - rows of maze
      */
 
     public Maze generate(int rows, int columns) {
@@ -51,6 +52,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * returns array list of 2-4 neighbours of a position
+     *
      * @param p - position from user
      */
 
@@ -73,6 +75,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * add to candidates<position> list all position's neighbours who might become a path.
+     *
      * @param p - position from user
      */
 
@@ -88,6 +91,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * changeable cell (from 1 to 0) is a cell that has maximum of one 0 neighbour,
+     *
      * @param p - position from user
      */
 
@@ -98,6 +102,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * checks if currently position can be changed to 0, if so, then do it
+     *
      * @param p - position from user
      */
 
@@ -111,6 +116,7 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * returns number of neighbours which are already on the path
+     *
      * @param p - position from user
      */
 
@@ -136,8 +142,9 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * checks if the position is on maze's bounds
-     * @param column  - column of maze
-     * @param row  - row of maze
+     *
+     * @param column - column of maze
+     * @param row    - row of maze
      */
 
     private boolean isLegal(int row, int column) {
@@ -149,7 +156,8 @@ public class MyMazeGenerator extends AMazeGenerator {
 
     /**
      * returns a random position from candidates list.
-     * @return  - random position
+     *
+     * @return - random position
      */
     private Position getRandomPos() {
         Random random = new Random();

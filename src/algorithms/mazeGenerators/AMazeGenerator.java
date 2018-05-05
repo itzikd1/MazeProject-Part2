@@ -10,7 +10,6 @@ public abstract class AMazeGenerator implements IMazeGenerator {
     public abstract Maze generate(int rows, int columns);
 
 
-
     @Override
     public long measureAlgorithmTimeMillis(int rows, int columns) {
         long StartTime = System.currentTimeMillis(); //get start time

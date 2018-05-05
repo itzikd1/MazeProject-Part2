@@ -7,8 +7,7 @@ package algorithms.mazeGenerators;
 public interface IMazeGenerator {
 
     /**
-     *
-     * @param rows - number of rows
+     * @param rows    - number of rows
      * @param columns - number of columns
      * @return generated maze
      */
@@ -16,6 +15,7 @@ public interface IMazeGenerator {
 
     /**
      * measure time to create
+     *
      * @param rows, columns - maze's dimensions
      * @return generation time
      */
