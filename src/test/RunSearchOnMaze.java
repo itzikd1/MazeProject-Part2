@@ -7,12 +7,16 @@ import java.util.ArrayList;
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(50, 10);
-        SearchableMaze searchableMaze = new SearchableMaze(maze);
-        maze.print();
-        solveProblem(searchableMaze, new BreadthFirstSearch());
-        solveProblem(searchableMaze, new DepthFirstSearch());
-        solveProblem(searchableMaze, new BestFirstSearch());
+        for (int i = 2; i < 111; i++)
+            for (int j = 2; j < 111; j++) {
+                System.out.println("answer i: " + i + " j: " + j);
+                Maze maze = mg.generate(i, j);
+                SearchableMaze searchableMaze = new SearchableMaze(maze);
+                //maze.print();
+                solveProblem(searchableMaze, new BreadthFirstSearch());
+                solveProblem(searchableMaze, new DepthFirstSearch());
+                solveProblem(searchableMaze, new BestFirstSearch());
+            }
     }
     private static void solveProblem(ISearchable domain, ISearchingAlgorithm
             searcher) {
