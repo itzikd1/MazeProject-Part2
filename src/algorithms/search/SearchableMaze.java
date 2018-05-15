@@ -174,9 +174,10 @@ public class SearchableMaze implements ISearchable {
      * @return true or false if Astate has been visitedMap
      */
 
+    //TODO error here for some reason with big mazes
     @Override
     public boolean isVisited(AState visit) {
-        if (visit != null && ((MazeState) visit).getRow() < maze.numOfRows() && ((MazeState) visit).getCol() < maze.numOfColumns())
+        if (visit != null && ((MazeState) visit).getRow() < maze.numOfRows()-1 && ((MazeState) visit).getCol() < maze.numOfColumns()-1)
             return visitedMap[((MazeState) visit).getRow()][((MazeState) visit).getCol()];
         else
             return false;
@@ -200,8 +201,8 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public void ResetVisit() {
-        for (int i = 0; i < maze.numOfRows(); i++)
-            for (int j = 0; j < maze.numOfColumns(); j++)
-                visitedMap[i][j] = false;
+        for (int i = 0; i < maze.numOfColumns(); i++)
+            for (int j = 0; j < maze.numOfRows(); j++)
+                visitedMap[j][i] = false;
     }
 }
