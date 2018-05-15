@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BestFirstSearchTest {
-    MyMazeGenerator test = new MyMazeGenerator();
-    BestFirstSearch bestFS = new BestFirstSearch();
-    Maze testMaze = test.generate(15, 15);
+    private MyMazeGenerator test = new MyMazeGenerator();
+    private BestFirstSearch bestFS = new BestFirstSearch();
+    private Maze testMaze = test.generate(15, 15);
 
     @Test
     void solve() {

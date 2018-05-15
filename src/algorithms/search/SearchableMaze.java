@@ -77,7 +77,7 @@ public class SearchableMaze implements ISearchable {
         return false;
     }
 
-    public ArrayList<AState> getAllDiagonal(int x, int y) {
+    private ArrayList<AState> getAllDiagonal(int x, int y) {
         ArrayList<AState> temp = new ArrayList<AState>();
         MazeState tempM;
         if (isLegal(x - 1, y - 1) && visitedMap[x - 1][y - 1] == false && maze.getCellValue(x - 1, y - 1) == 0)
@@ -124,7 +124,6 @@ public class SearchableMaze implements ISearchable {
         ArrayList<AState> temp = new ArrayList<AState>(); //array to keep possible states
         ArrayList<AState> tempD; //array to keep Diagonal states
         MazeState mazestate;
-        MazeState tempM;
         if (s != null && s instanceof MazeState) //make sure State is a MazeState
         {
             mazestate = ((MazeState) s);
@@ -201,8 +200,8 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public void ResetVisit() {
-        for (int i = 0; i < maze.numOfColumns(); i++)
-            for (int j = 0; j < maze.numOfRows(); j++)
+        for (int i = 0; i < maze.numOfRows(); i++)
+            for (int j = 0; j < maze.numOfColumns(); j++)
                 visitedMap[i][j] = false;
     }
 }

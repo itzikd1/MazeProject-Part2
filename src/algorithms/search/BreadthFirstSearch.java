@@ -73,8 +73,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                     domain.ResetVisit(); //reset visited fields
                     return Solu; //return solution
                 }
-
-
             }
         }
         return null;
