@@ -10,7 +10,6 @@ class BestFirstSearchTest {
     private MyMazeGenerator test = new MyMazeGenerator();
     private BestFirstSearch bestFS = new BestFirstSearch();
     private Maze testMaze = test.generate(15, 15);
-
     
     @Test
     void solve() {
