@@ -11,6 +11,7 @@ class BestFirstSearchTest {
     private BestFirstSearch bestFS = new BestFirstSearch();
     private Maze testMaze = test.generate(15, 15);
 
+    
     @Test
     void solve() {
         Solution Soul = bestFS.solve(new SearchableMaze(testMaze)); //solve maze with bfs
