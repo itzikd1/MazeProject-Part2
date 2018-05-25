@@ -202,8 +202,8 @@ public class SearchableMaze implements ISearchable {
 
     @Override
     public void ResetVisit() {
-        for (int i = 0; i < maze.numOfColumns(); i++)
-            for (int j = 0; j < maze.numOfRows(); j++)
-                visitedMap[j][i] = false;
+        for (int i = 0; i < maze.numOfRows(); i++)
+            for (int j = 0; j < maze.numOfColumns(); j++)
+                visitedMap[i][j] = false;
     }
 }
