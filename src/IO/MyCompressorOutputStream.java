@@ -1,6 +1,7 @@
 package IO;
 //TODO ADD THE ANSWER TO THE OPS
 //TODO 128 REPETITIONS.
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
@@ -60,9 +61,14 @@ public class MyCompressorOutputStream extends OutputStream {
             compressedMaze[copy] = (byte) (temp.remove(0).intValue());
             copy++;
         }
-//        while(compressedMaze.length!=0){
-//            out.write(compressedMaze.toString());
-//        }
-        //TODO compressedMaze to outputstream?
+
+        try{
+            for(int i = 0 ; i < compressedMaze.length; i++)
+                out.write(compressedMaze[i]);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+
+        }
     }
 }
