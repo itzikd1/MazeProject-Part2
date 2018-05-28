@@ -1,6 +1,7 @@
 package IO;
 //TODO ADD THE ANSWER TO THE OPS
 //TODO 128 REPETITIONS.
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -18,39 +19,50 @@ public class MyCompressorOutputStream extends OutputStream {
 
     }
 
-    public void write(byte[] b) {
-        ArrayList<Integer> temp = new ArrayList<>();//byte[] answer size is unknown
-        int oneRepeatitions = 0;
-        int zeroRepeatitions = 0;
-        int j = 8;//here the maze's values start
-        while (j != b.length) {
-            for (; j < b.length; j++) {
-                //TODO until reach the first cell that describe maze size etc.. if b[i]=='sign' ->done
-                if (b[j] == 0) {
-                    zeroRepeatitions++;
-                    if (j == b.length - 1)//last cell
-                        temp.add(zeroRepeatitions);
-                } else {//a 0's combo finished
-                    temp.add(zeroRepeatitions);
-                    zeroRepeatitions = 0;//reset for next 0's scan
-                    break;
-                }
-
-            }
-
-            for (; j < b.length; j++) {
-                if (b[j] == 1) {
-                    oneRepeatitions++;
-                    if (j == b.length - 1)
-                        temp.add(oneRepeatitions);
-                } else {
-                    temp.add(oneRepeatitions);
-                    oneRepeatitions = 0;
-                    break;
-
-                }
-            }
+    private byte convertByteArr(byte[] tmp, int size) {
+        int intNum = 0;
+        double power = 0;
+        for (int i=size; i>=0; i--){
+            intNum = intNum + tmp[i] * (int)Math.pow(2,power);
+            power++;
         }
+        byte result = (byte)intNum;
+        return result;
+    }
+
+    private byte convertByteArr(byte[] tmp) {
+        int intNum = 0;
+        double power = 0;
+        for (int i=tmp.length-1; i>=0; i--){
+            intNum = intNum + tmp[i] * (int)Math.pow(2,power);
+            power++;
+        }
+        byte result = (byte)intNum;
+        return result;
+    }
+
+    public void write(byte[] b) {
+        ArrayList<Byte> temp = new ArrayList<>();//byte[] answer size is unknown
+        int j = 8;//here the maze's values start
+        byte[] bitSend = new byte[8];
+        while (j < b.length) {
+            int count=0;
+            int tempcheck=0;
+            while (count < 8 && j < b.length) {
+                bitSend[count] = b[j];
+                j++;
+                count++;
+            }
+            if (j<=b.length)
+                temp.add(convertByteArr(bitSend));
+            else //when last 4 bytes are not 4 but 3\2\1
+            {
+                tempcheck = b.length%8;
+                temp.add(convertByteArr(bitSend, tempcheck));
+            }
+
+        }
+
 
         byte[] compressedMaze = new byte[8 + temp.size()];//8 cells for maze' details and rest for 0,1 repeatitions
         int copy = 0;
@@ -62,11 +74,10 @@ public class MyCompressorOutputStream extends OutputStream {
             copy++;
         }
 
-        try{
-            for(int i = 0 ; i < compressedMaze.length; i++)
+        try {
+            for (int i = 0; i < compressedMaze.length; i++)
                 out.write(compressedMaze[i]);
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
 
         }

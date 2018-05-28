@@ -15,8 +15,8 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             toClient.flush();
 
             ArrayList<Integer> al = (ArrayList<Integer>)fromClient.readObject();
-            Maze returnToClient = new Maze(al.get(0),al.get(1));
-            toClient.write(returnToClient.toByteArray());
+            Maze returnToClientMaze = new Maze(al.get(0),al.get(1));
+            toClient.writeObject(returnToClientMaze.toByteArray());
             MyCompressorOutputStream temp = new MyCompressorOutputStream(toClient);
             toClient.writeObject(temp);
 
