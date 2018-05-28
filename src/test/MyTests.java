@@ -22,7 +22,7 @@ public class MyTests {
 //        System.out.println(String.format("Maze generation time(ms): %s",
 //                mazeGenerator.measureAlgorithmTimeMillis(3/*rows*/,6/*columns*/)));
 // generate another maze
-        Maze maze = mazeGenerator.generate(260/*rows*/, 280/*columns*/);
+        Maze maze = mazeGenerator.generate(5/*rows*/, 5/*columns*/);
 // prints the maze
         maze.print();
         // test for maze to byte[]

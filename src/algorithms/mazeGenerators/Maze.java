@@ -182,8 +182,8 @@ public class Maze {
     public Maze(byte[] byteMaze){
 
 
-        int rows = byteMaze[0]*256 + byteMaze[1];
-        int cols = byteMaze[2]*256 + byteMaze[3];
+        int rows = (int)(byteMaze[0]*256 + byteMaze[1]);
+        int cols = (int)(byteMaze[2]*256 + byteMaze[3]);
         myMaze = new int[rows][cols];
         int k=0;
         for(;k<8;k++)

@@ -19,25 +19,15 @@ public class MyCompressorOutputStream extends OutputStream {
 
     }
 
-    private byte convertByteArr(byte[] tmp, int size) {
-        int intNum = 0;
-        double power = 0;
-        for (int i=size; i>=0; i--){
-            intNum = intNum + tmp[i] * (int)Math.pow(2,power);
-            power++;
-        }
-        byte result = (byte)intNum;
-        return result;
-    }
 
     private byte convertByteArr(byte[] tmp) {
         int intNum = 0;
         double power = 0;
-        for (int i=tmp.length-1; i>=0; i--){
-            intNum = intNum + tmp[i] * (int)Math.pow(2,power);
+        for (int i = tmp.length - 1; i >= 0; i--) {
+            intNum = intNum + tmp[i] * (int) Math.pow(2, power);
             power++;
         }
-        byte result = (byte)intNum;
+        byte result = (byte) intNum;
         return result;
     }
 
@@ -46,34 +36,33 @@ public class MyCompressorOutputStream extends OutputStream {
         int j = 8;//here the maze's values start
         byte[] bitSend = new byte[8];
         while (j < b.length) {
-            int count=0;
-            int tempcheck=0;
+            int count = 0;
+            int tempcheck = 0;
             while (count < 8 && j < b.length) {
                 bitSend[count] = b[j];
                 j++;
                 count++;
             }
-            if (j<=b.length)
+            if (count == 8)
                 temp.add(convertByteArr(bitSend));
-            else //when last 4 bytes are not 4 but 3\2\1
+            else //when last 8 bytes are not 8 but less
             {
-                tempcheck = b.length%8;
-                temp.add(convertByteArr(bitSend, tempcheck));
+                tempcheck = b.length % 8;
+                byte[] bitSend2 = new byte[tempcheck];
+                temp.add(convertByteArr(bitSend2)); //TODO maybe -1
             }
-
         }
-
-
         byte[] compressedMaze = new byte[8 + temp.size()];//8 cells for maze' details and rest for 0,1 repeatitions
         int copy = 0;
         for (; copy < 8; copy++)
             compressedMaze[copy] = b[copy];//8 cells for maze's info
         while (temp.size() != 0) {//add arraylist values to the byte[] answer
             //(0,0) is start position, therefore the values on even indexes (8,10,...)represents 0 combos
-            compressedMaze[copy] = (byte) (temp.remove(0).intValue());
+            compressedMaze[copy] = (byte) (temp.remove(0));
             copy++;
         }
-
+        for (int i = 0; i < compressedMaze.length; i++)
+            System.out.print(compressedMaze[i]+" ");
         try {
             for (int i = 0; i < compressedMaze.length; i++)
                 out.write(compressedMaze[i]);
