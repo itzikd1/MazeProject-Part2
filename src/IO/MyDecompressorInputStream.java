@@ -80,8 +80,7 @@ public class MyDecompressorInputStream extends InputStream {
         for (int i = 0; i < compressedMaze.length; i++)
             System.out.print(compressedMaze[i] + " ");
         try {
-            for (int i = 0; i < compressedMaze.length; i++)
-                in.read(compressedMaze[i]);
+            in.read(compressedMaze);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +91,6 @@ public class MyDecompressorInputStream extends InputStream {
 
 
     public int read() {
-
-        return 0;
+        return 1;
     }
 }
