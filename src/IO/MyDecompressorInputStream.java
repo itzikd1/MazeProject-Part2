@@ -63,7 +63,6 @@ public class MyDecompressorInputStream extends InputStream {
             lastsize = getSize(b[j]);
             j++;
         }
-
         byte[] compressedMaze = new byte[8 + temp.size() * 8 - 8 + lastsize];//8 cells for maze' details and rest for 0,1 repeatitions
         int copy = 0;
         for (; copy < 8; copy++)
@@ -82,7 +81,8 @@ public class MyDecompressorInputStream extends InputStream {
             System.out.print(compressedMaze[i] + " ");
         try {
             for (int i = 0; i < compressedMaze.length; i++)
-                in.read(compressedMaze);
+                in.read(compressedMaze[i]);
+
         } catch (IOException e) {
             e.printStackTrace();
 
