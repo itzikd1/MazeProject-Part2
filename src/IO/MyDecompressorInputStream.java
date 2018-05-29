@@ -33,68 +33,56 @@ public class MyDecompressorInputStream extends InputStream {
         return size;
     }
 
-    private byte[] convertArrByte(byte tmp) {
-        int intNum = (int) tmp;
-        int size;
-        if (intNum < 0)
-            intNum = intNum + 256;
-        size = getSize(intNum);
-        byte[] temp = new byte[size];
-        for (int i = 0; i >= size; i++) {
-            temp[i] = (byte) (intNum % 2);
-            intNum = intNum / 2;
+    // gets byte and transfers to 8 or less bits sequence
+    private byte[] ByteToBits(byte b) {
+        int tmp = (int)b;
+        byte[] ans = new byte[8];
+        for (int i = 7; i >= 0; i--) {
+            ans[i] = (byte)(tmp % 2);
+            tmp = tmp / 2;
         }
-        return temp;
+        return ans;
     }
 
 //TODO remmber to do x.length - something because of %8
 
     public int read(byte[] b) {
+        ArrayList<Byte> fromUser = new ArrayList<>();
 
-        try {
-            for(int i = 0 ; i < b.length; i++){
-                b[i]=(byte)in.read();
-            }
-
-        } catch (IOException e) {
+        try{
+            while( in.available() > 0) // check if the file stream is at the end
+                fromUser.add((byte) in.read());
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
+        for(int i = 0 ; i < 8; i++)
+            b[i]=fromUser.remove(0);
 
-        ArrayList<byte[]> temp = new ArrayList<>();//byte[] answer size is unknown
-        byte[] tmp = new byte[8];
-        int lastsize = 0;
-        int j = 8;//here the maze's values start
-        while (j < b.length) {
-            int tempcheck = 0;
-            tmp = convertArrByte(b[j]);
-            temp.add(tmp);
-            lastsize = getSize(b[j]);
+        int i = 8;
+        while(fromUser.size()!=1){
+            byte toBinary = fromUser.remove(0);
+            byte[] binaryValues = ByteToBits(toBinary);
+            for(int j = 0; j<8; i++) {
+                b[i] = binaryValues[j];
+                j++;
+            }
+        }
+        byte toBinary = fromUser.remove(0);
+        int x = getSize(toBinary);
+        byte[] binaryValues = ByteToBits(toBinary);
+
+        //for example, if size is 2,value 3, we dont want to add 00000011
+        for(int j = 8-x; j < 8 ; i++){
+            b[i] = binaryValues[j];
             j++;
         }
-        byte[] compressedMaze = new byte[8 + temp.size() * 8 - 8 + lastsize];//8 cells for maze' details and rest for 0,1 repeatitions
-        int copy = 0;
-        for (; copy < 8; copy++)
-            compressedMaze[copy] = b[copy];//8 cells for maze's info
-        while (temp.size() != 0) {//add arraylist values to the byte[] answer
-            //(0,0) is start position, therefore the values on even indexes (8,10,...)represents 0 combos
-            byte [] x = temp.remove(0);
-            for (int i = 0; i < 8; i++) {
-                if (compressedMaze.length>=copy)
-                    break;
-                compressedMaze[copy] = (byte) x[i];
-                copy++;
-            }
-        }
-        for (int i = 0; i < compressedMaze.length; i++)
-            System.out.print(compressedMaze[i] + " ");
-        try {
-            //for (int i = 0; i < compressedMaze.length; i++)
-                in.read(compressedMaze);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        for(int m = 0 ; m < b.length;m++){
+            System.out.print(b[m]);
 
         }
+        
         return 0;
     }
 
