@@ -36,6 +36,8 @@ public class MyDecompressorInputStream extends InputStream {
     // gets byte and transfers to 8 or less bits sequence
     private byte[] ByteToBits(byte b) {
         int tmp = (int)b;
+        if (tmp<0)
+            tmp=tmp+256;
         byte[] ans = new byte[8];
         for (int i = 7; i >= 0; i--) {
             ans[i] = (byte)(tmp % 2);
@@ -69,7 +71,7 @@ public class MyDecompressorInputStream extends InputStream {
             }
         }
         byte toBinary = fromUser.remove(0);
-        int x = getSize(toBinary);
+        int x = b.length%8;
         byte[] binaryValues = ByteToBits(toBinary);
 
         //for example, if size is 2,value 3, we dont want to add 00000011
@@ -79,9 +81,10 @@ public class MyDecompressorInputStream extends InputStream {
         }
 
         for(int m = 0 ; m < b.length;m++){
-            System.out.print(b[m]);
+            System.out.print(" "+b[m]);
 
         }
+        System.out.println("");
 
         return 0;
     }
