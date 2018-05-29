@@ -52,6 +52,16 @@ public class MyDecompressorInputStream extends InputStream {
 //TODO remmber to do x.length - something because of %8
 
     public int read(byte[] b) {
+
+        try {
+            for(int i = 0 ; i < b.length; i++){
+                b[i]=(byte)in.read();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         ArrayList<byte[]> temp = new ArrayList<>();//byte[] answer size is unknown
         byte[] tmp = new byte[8];
         int lastsize = 0;
@@ -80,7 +90,8 @@ public class MyDecompressorInputStream extends InputStream {
         for (int i = 0; i < compressedMaze.length; i++)
             System.out.print(compressedMaze[i] + " ");
         try {
-            in.read(compressedMaze);
+            for (int i = 0; i < compressedMaze.length; i++)
+                in.read(compressedMaze[i]);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,6 +102,7 @@ public class MyDecompressorInputStream extends InputStream {
 
 
     public int read() {
-        return 1;
+
+        return 0;
     }
 }
