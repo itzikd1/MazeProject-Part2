@@ -49,8 +49,8 @@ public class MyCompressorOutputStream extends OutputStream {
             {
                 tempcheck = b.length % 8;
                 byte[] bitSend2 = new byte[tempcheck];
-                for(int i = 0 ; i < bitSend2.length; i++)
-                    bitSend2[i]=bitSend[i];
+                for (int i = 0; i < bitSend2.length; i++)
+                    bitSend2[i] = bitSend[i];
                 temp.add(convertByteArr(bitSend2)); //TODO maybe -1
             }
         }
@@ -65,7 +65,7 @@ public class MyCompressorOutputStream extends OutputStream {
             copy++;
         }
         for (int i = 0; i < compressedMaze.length; i++)
-            System.out.print(compressedMaze[i]+" ");
+            System.out.print(compressedMaze[i] + " ");
         try {
             for (int i = 0; i < compressedMaze.length; i++)
                 out.write(compressedMaze[i]);

@@ -35,12 +35,12 @@ public class MyDecompressorInputStream extends InputStream {
 
     // gets byte and transfers to 8 or less bits sequence
     private byte[] ByteToBits(int b) {
-        int tmp = (int)b;
-        if (tmp<0)
-            tmp+=256;
+        int tmp = (int) b;
+        if (tmp < 0)
+            tmp += 256;
         byte[] ans = new byte[8];
         for (int i = 7; i >= 0; i--) {
-            ans[i] = (byte)(tmp % 2);
+            ans[i] = (byte) (tmp % 2);
             tmp = tmp / 2;
         }
         return ans;
@@ -51,30 +51,29 @@ public class MyDecompressorInputStream extends InputStream {
     public int read(byte[] b) {
         ArrayList<Byte> fromUser = new ArrayList<>();
 
-        try{
-            while( in.available() > 0) // check if the file stream is at the end
+        try {
+            while (in.available() > 0) // check if the file stream is at the end
                 fromUser.add((byte) in.read());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        for(int i = 0 ; i < 8; i++)
-            b[i]=fromUser.remove(0);
+        for (int i = 0; i < 8; i++)
+            b[i] = fromUser.remove(0);
 
         int i = 8;
-        while(fromUser.size()!=1){
+        while (fromUser.size() != 1) {
             int toBinary = fromUser.remove(0);
-            if(toBinary<0)
-                toBinary+=256;
+            if (toBinary < 0)
+                toBinary += 256;
             byte[] binaryValues = ByteToBits(toBinary);
-            for(int j = 0; j<8; i++) {
+            for (int j = 0; j < 8; i++) {
                 b[i] = binaryValues[j];
                 j++;
             }
         }
         byte toBinary = fromUser.remove(0);
-        int x = b.length%8;
-        if (x!=0) {
+        int x = b.length % 8;
+        if (x != 0) {
             byte[] binaryValues = ByteToBits(toBinary);
 
             //for example, if size is 2,value 3, we dont want to add 00000011
@@ -82,18 +81,17 @@ public class MyDecompressorInputStream extends InputStream {
                 b[i] = binaryValues[j];
                 j++;
             }
-        }
-        else{
-            if(toBinary<0)
-                toBinary+=256;
+        } else {
+            if (toBinary < 0)
+                toBinary += 256;
             byte[] binaryValues = ByteToBits(toBinary);
-            for(int j = 0; j<8; i++) {
+            for (int j = 0; j < 8; i++) {
                 b[i] = binaryValues[j];
                 j++;
             }
         }
 
-        for(int m = 0 ; m < b.length;m++){
+        for (int m = 0; m < b.length; m++) {
             System.out.print(b[m]);
 
         }
