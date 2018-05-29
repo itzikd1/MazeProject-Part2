@@ -42,7 +42,7 @@ public class MyDecompressorInputStream extends InputStream {
             intNum = intNum + 256;
         size = getSize(intNum);
         byte[] temp = new byte[size];
-        for (int i = 0; i >= size; i++) {
+        for (int i = size-1; i >=0; i--) {
             temp[i] = (byte) (intNum % 2);
             intNum = intNum / 2;
         }
@@ -66,7 +66,7 @@ public class MyDecompressorInputStream extends InputStream {
         byte[] tmp = new byte[8];
         int lastsize = 0;
         int j = 8;//here the maze's values start
-        while (j < b.length) {
+        while (j < (b.length-8)/8) {
             int tempcheck = 0;
             tmp = convertArrByte(b[j]);
             temp.add(tmp);
@@ -81,7 +81,7 @@ public class MyDecompressorInputStream extends InputStream {
             //(0,0) is start position, therefore the values on even indexes (8,10,...)represents 0 combos
             byte [] x = temp.remove(0);
             for (int i = 0; i < 8; i++) {
-                if (compressedMaze.length>=copy)
+                if (compressedMaze.length<=copy)
                     break;
                 compressedMaze[copy] = (byte) x[i];
                 copy++;
@@ -90,8 +90,7 @@ public class MyDecompressorInputStream extends InputStream {
         for (int i = 0; i < compressedMaze.length; i++)
             System.out.print(compressedMaze[i] + " ");
         try {
-            for (int i = 0; i < compressedMaze.length; i++)
-                in.read(compressedMaze[i]);
+            in.read(compressedMaze);
 
         } catch (IOException e) {
             e.printStackTrace();
