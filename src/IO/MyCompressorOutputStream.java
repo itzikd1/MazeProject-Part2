@@ -61,6 +61,7 @@ public class MyCompressorOutputStream extends OutputStream {
         while (temp.size() != 0) {//add arraylist values to the byte[] answer
             //(0,0) is start position, therefore the values on even indexes (8,10,...)represents 0 combos
             compressedMaze[copy] = (byte) (temp.remove(0));
+
             copy++;
         }
         for (int i = 0; i < compressedMaze.length; i++)
