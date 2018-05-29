@@ -82,7 +82,7 @@ public class MyDecompressorInputStream extends InputStream {
             System.out.print(b[m]);
 
         }
-        
+
         return 0;
     }
 
