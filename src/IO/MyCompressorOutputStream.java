@@ -64,10 +64,8 @@ public class MyCompressorOutputStream extends OutputStream {
 
             copy++;
         }
-
         for (int i = 0; i < compressedMaze.length; i++)
             System.out.print(compressedMaze[i]+" ");
-        System.out.println("");
         try {
             for (int i = 0; i < compressedMaze.length; i++)
                 out.write(compressedMaze[i]);
