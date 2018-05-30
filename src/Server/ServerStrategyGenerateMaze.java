@@ -7,11 +7,12 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class ServerStrategyGenerateMaze implements IServerStrategy {
+
     @Override
-    public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
+    public void serverStrategy(InputStream inputStream, OutputStream outputStream) {
         try {
-            ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
-            ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
+            ObjectInputStream fromClient = new ObjectInputStream(inputStream);
+            ObjectOutputStream toClient = new ObjectOutputStream(outputStream);
             toClient.flush();
 
             ArrayList<Integer> al = (ArrayList<Integer>) fromClient.readObject();
