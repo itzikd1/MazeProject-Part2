@@ -69,10 +69,8 @@ public class RunCommunicateWithServers {
                 public void clientStrategy(InputStream inFromServer,
                                            OutputStream outToServer) {
                     try {
-                        ObjectOutputStream toServer = new
-                                ObjectOutputStream(outToServer);
-                        ObjectInputStream fromServer = new
-                                ObjectInputStream(inFromServer);
+                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
                         MyMazeGenerator mg = new MyMazeGenerator();
                         Maze maze = mg.generate(50, 50);
