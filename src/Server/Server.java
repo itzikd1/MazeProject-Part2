@@ -9,38 +9,54 @@ import java.net.SocketTimeoutException;
 
 public class Server {
     private int port;
-    private int listeningIntervalMS;
+    private int listeningInterval;
     private IServerStrategy serverStrategy;
     private volatile boolean stop;
 
-    public Server(int port, int listeningIntervalMS, IServerStrategy serverStrategy) {
+    public Server(int port, int listeningInterval, IServerStrategy serverStrategy) {
         this.port = port;
-        this.listeningIntervalMS = listeningIntervalMS;
+        this.listeningInterval = listeningInterval;
         this.serverStrategy = serverStrategy;
     }
 
     public void start() {
+        new Thread(() -> {
+            serverStrategy();
+        }).start();
+    }
+
+    private void serverStrategy() {
         try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            serverSocket.setSoTimeout(listeningIntervalMS);
+            ServerSocket server = new ServerSocket(port);
+            server.setSoTimeout(listeningInterval);
+            System.out.println(String.format("Server started! (port: %s)", port));
             while (!stop) {
                 try {
-                    Socket clientSocket = serverSocket.accept(); // blocking call
-                    try {
-                        serverStrategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-                        clientSocket.getInputStream().close();
-                        clientSocket.getOutputStream().close();
-                        clientSocket.close();
-                    } catch (IOException e) {
-                        System.out.println("IOException " + e);
-                    }
+                    Socket clientSocket = server.accept(); // blocking call
+                    System.out.println(String.format("Client excepted: %s", clientSocket.toString()));
+                    new Thread(() -> {
+                        handleClient(clientSocket);
+                    }).start();
                 } catch (SocketTimeoutException e) {
-                    System.out.println("Socket Timeout - no Client requests!");
+                    System.out.println("SocketTimeout - No clients pending!");
                 }
             }
-            serverSocket.close();
+            server.close();
         } catch (IOException e) {
-            System.out.println("IOException" + e);
+            System.out.println("IOException");
+        }
+    }
+
+    private void handleClient(Socket clientSocket) {
+        try {
+            System.out.println("Client excepted!");
+            System.out.println(String.format("Handling client with socket: %s", clientSocket.toString()));
+            serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+            clientSocket.getInputStream().close();
+            clientSocket.getOutputStream().close();
+            clientSocket.close();
+        } catch (IOException e) {
+            System.out.println("IOException");
         }
     }
 
@@ -49,3 +65,4 @@ public class Server {
         stop = true;
     }
 }
+

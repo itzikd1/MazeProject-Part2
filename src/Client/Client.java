@@ -14,15 +14,14 @@ public class Client {
         this.clientStrategy = clientStrategy;
     }
 
-    public void start() {
-        try (Socket serverSocket = new Socket(serverIP, serverPort)) {
-            System.out.println(String.format("Client is connected to server (IP: %s, Port: %s)", serverIP, serverPort));
-            clientStrategy.applyStrategy(serverSocket.getInputStream(), serverSocket.getOutputStream());
+    public void communicateWithServer() {
+        try {
+            Socket theServer = new Socket(serverIP, serverPort);
+            System.out.println(String.format("Client is connected to server (IP: %s, port: %s)", serverIP, serverPort));
+            clientStrategy.clientStrategy(theServer.getInputStream(), theServer.getOutputStream());
+            theServer.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void communicateWithServer() {
     }
 }
