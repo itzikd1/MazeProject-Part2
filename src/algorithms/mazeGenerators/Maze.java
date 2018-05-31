@@ -19,7 +19,7 @@ public class Maze {
             column = 10;
         myMaze = new int[row][column];
         startPosition = new Position(0, 0); //default start = (0,0)
-
+        goalPosition = new Position(row-1, column-1); //default start = (row,col)
     }
 
     /**

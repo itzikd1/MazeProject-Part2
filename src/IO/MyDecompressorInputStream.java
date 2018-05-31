@@ -59,7 +59,10 @@ public class MyDecompressorInputStream extends InputStream {
         }
         for (int i = 0; i < 8; i++)
             b[i] = fromUser.remove(0);
+        int row = b[0]*256 + b[1];
+        int col= b[2]*256 + b[3];
 
+        byte[] binaryValues2 = new byte[row*col+8];
         int i = 8;
         while (fromUser.size() != 1) {
             int toBinary = fromUser.remove(0);
@@ -67,18 +70,18 @@ public class MyDecompressorInputStream extends InputStream {
                 toBinary += 256;
             byte[] binaryValues = ByteToBits(toBinary);
             for (int j = 0; j < 8; i++) {
-                b[i] = binaryValues[j];
+                binaryValues2[i] = binaryValues[j];
                 j++;
             }
         }
         byte toBinary = fromUser.remove(0);
-        int x = b.length % 8;
+        int x = binaryValues2.length % 8;
         if (x != 0) {
             byte[] binaryValues = ByteToBits(toBinary);
 
             //for example, if size is 2,value 3, we dont want to add 00000011
             for (int j = 8 - x; j < 8; i++) {
-                b[i] = binaryValues[j];
+                binaryValues2[i] = binaryValues[j];
                 j++;
             }
         } else {
@@ -86,10 +89,12 @@ public class MyDecompressorInputStream extends InputStream {
                 toBinary += 256;
             byte[] binaryValues = ByteToBits(toBinary);
             for (int j = 0; j < 8; i++) {
-                b[i] = binaryValues[j];
+                binaryValues2[i] = binaryValues[j];
                 j++;
             }
         }
+        for (int f=8; f<binaryValues2.length; f++)
+            b[f]=binaryValues2[f];
 
         for (int m = 0; m < b.length; m++) {
             System.out.print(b[m]);
