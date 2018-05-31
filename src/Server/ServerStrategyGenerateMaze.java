@@ -22,7 +22,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             MyMazeGenerator mazeToGen = new MyMazeGenerator();
             int[] mazeProp = (int[]) fromClient.readObject();
             Maze returnToClientMaze = mazeToGen.generate(mazeProp[0], mazeProp[1]);
-            byte [] ReturnDoneMaze = returnToClientMaze.toByteArray();
+            byte[] ReturnDoneMaze = returnToClientMaze.toByteArray();
             returnCompressedMaze.write(ReturnDoneMaze);
             toClient.writeObject(temp.toByteArray());
             returnCompressedMaze.close();
@@ -33,6 +33,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NumberFormatException e) {
-            e.printStackTrace(); }
+            e.printStackTrace();
+        }
     }
 }
