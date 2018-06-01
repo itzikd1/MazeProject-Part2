@@ -1,6 +1,4 @@
 package IO;
-//TODO ADD THE ANSWER TO THE OPS
-//TODO 128 REPETITIONS.
 
 import java.io.IOException;
 import java.io.OutputStream;
