@@ -1,7 +1,9 @@
 package algorithms.mazeGenerators;
 
 
-public class Maze {
+import java.io.Serializable;
+
+public class Maze implements Serializable {
     private int[][] myMaze;
     private Position startPosition;
     private Position goalPosition;
@@ -209,4 +211,9 @@ public class Maze {
             column = 10;
         */
     }
-}
+
+    public String toString() {
+        String x;
+        x = startPosition.getColumnIndex()+ " " +startPosition.getRowIndex()+ " " +goalPosition.getRowIndex()+ " " +goalPosition.getColumnIndex() + " " + myMaze.length + myMaze[0].length;
+        return x;
+    }}

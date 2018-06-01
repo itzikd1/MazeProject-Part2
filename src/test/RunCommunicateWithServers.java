@@ -22,24 +22,23 @@ public class RunCommunicateWithServers {
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
 
-        //Communicating with servers
-//        CommunicateWithServer_MazeGenerating();
-        Thread[] table = new Thread[5];
-        for (int i=0; i<table.length; i++) {
-            table[i]=new Thread(() -> CommunicateWithServer_MazeGenerating());
-            Thread.sleep(1000);
-            table[i].start();
-        }
-        for (int i=0; i<table.length; i++) {
-            try {
-                table[i].join(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+//        Communicating with servers
+//        Thread[] table = new Thread[2];
+//        for (int i=0; i<table.length; i++) {
+//            table[i]=new Thread(() -> CommunicateWithServer_MazeGenerating());
+//            Thread.sleep(1000);
+//            table[i].start();
+//        }
+//        for (int i=0; i<table.length; i++) {
+//            try {
+//                table[i].join(2000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
 //Communicating with servers
         CommunicateWithServer_MazeGenerating();
-//        CommunicateWithServer_SolveSearchProblem();
+        CommunicateWithServer_SolveSearchProblem();
 //Stopping all servers
         mazeGeneratingServer.stop();
         solveSearchProblemServer.stop();
@@ -88,43 +87,14 @@ public class RunCommunicateWithServers {
                         maze.print();
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();
-                        Solution mazeSolution = (Solution) fromServer.readObject(); //read generated maze (compressed withMyCompressor)from server
-//Print Maze Solution retrieved from the server
-                        System.out.println(String.format("Solution steps: % s", mazeSolution));
+                        Solution mazeSolution = (Solution) fromServer.readObject();
+                        //read generated maze (compressed withMyCompressor)from server
+                        // Print Maze Solution retrieved from the server
+                        System.out.println(String.format("Solution steps: %s", mazeSolution));
                         ArrayList<AState> mazeSolutionSteps = mazeSolution.getSolutionPath();
                         for (int i = 0; i < mazeSolutionSteps.size(); i++) {
                             System.out.println(String.format("%s. %s", i, mazeSolutionSteps.get(i).toString()));
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            client.communicateWithServer();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void CommunicateWithServer_StringReverser() {
-        try {
-            Client client = new Client(InetAddress.getLocalHost(), 5402, new IClientStrategy() {
-                @Override
-                public void clientStrategy(InputStream inFromServer,
-                                           OutputStream outToServer) {
-                    try {
-                        BufferedReader fromServer = new BufferedReader(new
-                                InputStreamReader(inFromServer));
-                        PrintWriter toServer = new PrintWriter(outToServer);
-                        String message = "Client Message";
-                        String serverResponse;
-                        toServer.write(message + "\n");
-                        toServer.flush();
-                        serverResponse = fromServer.readLine();
-                        System.out.println(String.format("Server response: % s", serverResponse));
-                        toServer.flush();
-                        fromServer.close();
-                        toServer.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

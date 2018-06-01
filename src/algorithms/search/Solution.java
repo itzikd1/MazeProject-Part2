@@ -1,5 +1,6 @@
 package algorithms.search;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * returns array with all solution steps
  */
 
-public class Solution {
+public class Solution implements Serializable {
 
     private ArrayList<AState> solution;
 
@@ -36,5 +37,10 @@ public class Solution {
 
     public ArrayList<AState> getSolutionPath() {
         return solution;
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 }

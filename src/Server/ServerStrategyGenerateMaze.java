@@ -25,6 +25,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             returnCompressedMaze.write(ReturnDoneMaze);
             toClient.writeObject(temp.toByteArray());
             returnCompressedMaze.close();
+            temp.close();
 
 
         } catch (IOException e) {

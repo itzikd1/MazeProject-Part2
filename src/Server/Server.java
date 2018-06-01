@@ -47,36 +47,35 @@ public class Server {
             while (!stop) {
                 try {
                     Socket clientSocket = server.accept(); // blocking call
-                    System.out.println(String.format("Client excepted: %s", clientSocket.toString()));
+//                    System.out.println(String.format("Client excepted: %s", clientSocket.toString()));
                     x.submit(new Thread(() -> {
                                 handleClient(clientSocket);
                             })
                     );
                 } catch (SocketTimeoutException e) {
-                    System.out.println("SocketTimeout - No clients pending!");
+                    e.getStackTrace();
                 }
             }
             server.close();
         } catch (IOException e) {
-            System.out.println("IOException");
+            e.getStackTrace();
         }
     }
 
     private void handleClient(Socket clientSocket) {
         try {
-            System.out.println("Client excepted!");
-            System.out.println(String.format("Handling client with socket: %s", clientSocket.toString()));
+//            System.out.println("Client excepted!");
+//            System.out.println(String.format("Handling client with socket: %s", clientSocket.toString()));
             serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
             clientSocket.getInputStream().close();
             clientSocket.getOutputStream().close();
             clientSocket.close();
         } catch (IOException e) {
-            System.out.println("IOException");
+            e.getStackTrace();
         }
     }
 
     public void stop() {
-        System.out.println("Stopping server..");
         stop = true;
     }
 }
