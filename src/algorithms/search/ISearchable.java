@@ -14,7 +14,7 @@ public interface ISearchable {
     void setGoalState(AState x);
 
     ArrayList<AState> getAllPossibleStates(AState s);
-
+    
     boolean isVisited(AState visit);
 
     void changeVisitTrue(AState visit);

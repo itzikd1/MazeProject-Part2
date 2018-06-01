@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class RunCommunicateWithServers {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 //Initializing servers
         Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
         Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());

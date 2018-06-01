@@ -15,7 +15,7 @@ public class MyDecompressorInputStream extends InputStream {
 
     // gets byte and transfers to 8 or less bits sequence
     private byte[] ByteToBits(int b) {
-        int tmp = (int) b;
+        int tmp = b;
         if (tmp < 0)
             tmp += 256;
         byte[] ans = new byte[8];
@@ -26,7 +26,7 @@ public class MyDecompressorInputStream extends InputStream {
         return ans;
     }
 
-//TODO remmber to do x.length - something because of %8
+//TODO remember to do x.length - something because of %8
 
     /**
      * read from input stream
@@ -65,7 +65,7 @@ public class MyDecompressorInputStream extends InputStream {
         if (lastCheck != 0) {
             byte[] binaryValues = ByteToBits(toBinary);
 
-            //for example, if size is 2,value 3, we dont want to add 00000011
+            //for example, if size is 2,value 3, we don't want to add 00000011
             for (int j = 8 - lastCheck; j < 8; i++) {
                 byteArrayFinal[i] = binaryValues[j];
                 j++;
@@ -74,19 +74,19 @@ public class MyDecompressorInputStream extends InputStream {
             if (toBinary < 0)
                 toBinary += 256; // if negative number
             byte[] binaryValues = ByteToBits(toBinary);
-            for (int j = 0; j < 8; i++) {//trasfer 8 values of details of maze
+            for (int j = 0; j < 8; i++) {//transfer 8 values of details of maze
                 byteArrayFinal[i] = binaryValues[j];
                 j++;
             }
         }
         for (int f = 8; f < byteArrayFinal.length; f++)
-            b[f] = byteArrayFinal[f];//trasfser rest
+            b[f] = byteArrayFinal[f];//transfer rest
 
-        for (int m = 0; m < b.length; m++) {
-            System.out.print(b[m]);
+//        for (int m = 0; m < b.length; m++) {
+//            System.out.print(b[m]);
 
-        }
-        System.out.println("");
+//        }
+//        System.out.println("");
         return 0;
     }
 

@@ -28,13 +28,9 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             temp.close();
 
 
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException | NumberFormatException e) {
             e.printStackTrace();
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
         }
     }
 }

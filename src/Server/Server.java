@@ -20,7 +20,7 @@ public class Server {
      *
      * @param port - port of server
      * @param listeningInterval - listing interval
-     * @param serverStrategy - strateft type
+     * @param serverStrategy - strategy type
      */
     public Server(int port, int listeningInterval, IServerStrategy serverStrategy) {
         this.port = port;
@@ -43,7 +43,7 @@ public class Server {
             x.setCorePoolSize(Runtime.getRuntime().availableProcessors() * 2);
             ServerSocket server = new ServerSocket(port);
             server.setSoTimeout(listeningInterval);
-            System.out.println(String.format("Server started! (port: %s)", port));
+//            System.out.println(String.format("Server started! (port: %s)", port));
             while (!stop) {
                 try {
                     Socket clientSocket = server.accept(); // blocking call
@@ -68,8 +68,8 @@ public class Server {
 //            System.out.println("Client excepted!");
 //            System.out.println(String.format("Handling client with socket: %s", clientSocket.toString()));
             serverStrategy.serverStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-            clientSocket.getInputStream().close();
-            clientSocket.getOutputStream().close();
+//            clientSocket.getInputStream().close();
+//            clientSocket.getOutputStream().close();
             clientSocket.close();
         } catch (IOException e) {
             e.getStackTrace();

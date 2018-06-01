@@ -21,14 +21,13 @@ public class MyCompressorOutputStream extends OutputStream {
      * @param b - int num
      */
     public void write(int b) {
-
     }
 
     /**
-     * convery from byte array to byte
+     * convert from byte array to byte
      *
      * @param ArryToConvert - array to convert
-     * @return byte after convertion
+     * @return byte after conversion
      */
 
     private byte convertByteArr(byte[] ArryToConvert) {
@@ -46,6 +45,7 @@ public class MyCompressorOutputStream extends OutputStream {
      *
      * @param b - write byte array
      */
+
     public void write(byte[] b) {
         ArrayList<Byte> temp = new ArrayList<>();//byte[] answer size is unknown
         int j = 8;//here the maze's values start
@@ -69,24 +69,23 @@ public class MyCompressorOutputStream extends OutputStream {
                 temp.add(convertByteArr(bitSend2)); //TODO maybe -1
             }
         }
-        byte[] compressedMaze = new byte[8 + temp.size()];//8 cells for maze' details and rest for 0,1 repeatitions
+        byte[] compressedMaze = new byte[8 + temp.size()];//8 cells for maze' details and rest for 0,1 repetitions
         int copy = 0;
         for (; copy < 8; copy++)
             compressedMaze[copy] = b[copy];//8 cells for maze's info
         while (temp.size() != 0) {//add arraylist values to the byte[] answer
             //(0,0) is start position, therefore the values on even indexes (8,10,...)represents 0 combos
-            compressedMaze[copy] = (byte) (temp.remove(0));
+            compressedMaze[copy] = temp.remove(0);
 
             copy++;
         }
-        for (int i = 0; i < compressedMaze.length; i++)
-            System.out.print(compressedMaze[i] + " ");
+//        for (int i = 0; i < compressedMaze.length; i++)
+//            System.out.print(compressedMaze[i] + " ");
         try {
             for (int i = 0; i < compressedMaze.length; i++)
                 out.write(compressedMaze[i]);
         } catch (IOException e) {
             e.printStackTrace();
-
         }
     }
 }

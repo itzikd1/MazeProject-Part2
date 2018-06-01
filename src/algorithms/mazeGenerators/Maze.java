@@ -19,7 +19,7 @@ public class Maze implements Serializable {
             column = 10;
         myMaze = new int[row][column];
         startPosition = new Position(0, 0); //default start = (0,0)
-        goalPosition = new Position(row-1, column-1); //default start = (row,col)
+        goalPosition = new Position(row - 1, column - 1); //default start = (row,col)
     }
 
     /**
@@ -120,100 +120,87 @@ public class Maze implements Serializable {
 
 
     /**
-     @@@@@@@@@@@@@@@@@@@@@@              PART B            @@@@@@@@@@@@@@
+     @@@@@@@@@@@@@@@@@@@@@@ PART B            @@@@@@@@@@@@@@
      */
-
-
-    /**
-     *
-     * @param calculateMe - int to calculate
-     * @return number of multipications needed to represent parameter +1
-     */
-    public int DivideBy256(int calculateMe){
-        int ans = 0;
-        while (calculateMe > 0) {
-            calculateMe = calculateMe - 255;
-            ans++;
-        }
-        return ans;
-    }
 
     /**
      * Converts this maze to byte array.
+     *
      * @return byte array represents maze
      */
 
     public byte[] toByteArray() {
 
         int rows = numOfRows();
-        int rowsNeeded = rows/256;
-        int rowsModulo = rows%256;
+        int rowsNeeded = rows / 256;
+        int rowsModulo = rows % 256;
 
         int cols = numOfColumns();
-        int colsNeeded = cols/256;
-        int colsModulo = cols%256;
+        int colsNeeded = cols / 256;
+        int colsModulo = cols % 256;
 
         int goalPosRow = getGoalPosition().getRowIndex();
-        int goalRowsNeeded = goalPosRow/256;
-        int goalRowsModulo = goalPosRow%256;
+        int goalRowsNeeded = goalPosRow / 256;
+        int goalRowsModulo = goalPosRow % 256;
 
         int goalPosCol = getGoalPosition().getColumnIndex();
-        int goalColsNeeded = goalPosCol/256;
-        int goalColsModulo = goalPosCol%256;
+        int goalColsNeeded = goalPosCol / 256;
+        int goalColsModulo = goalPosCol % 256;
 
-        byte [] mazeAsByteArray = new byte [rows*cols+8];
-        mazeAsByteArray[0]=(byte)rowsNeeded;
-        mazeAsByteArray[1]=(byte)rowsModulo;
-        mazeAsByteArray[2]=(byte)colsNeeded;
-        mazeAsByteArray[3]=(byte)colsModulo;
-        mazeAsByteArray[4]=(byte)goalRowsNeeded;
-        mazeAsByteArray[5]=(byte)goalRowsModulo;
-        mazeAsByteArray[6]=(byte)goalColsNeeded;
-        mazeAsByteArray[7]=(byte)goalColsModulo;
+        //first 8 bits are for details of maze
+        byte[] mazeAsByteArray = new byte[rows * cols + 8];
+        mazeAsByteArray[0] = (byte) rowsNeeded;
+        mazeAsByteArray[1] = (byte) rowsModulo;
+        mazeAsByteArray[2] = (byte) colsNeeded;
+        mazeAsByteArray[3] = (byte) colsModulo;
+        mazeAsByteArray[4] = (byte) goalRowsNeeded;
+        mazeAsByteArray[5] = (byte) goalRowsModulo;
+        mazeAsByteArray[6] = (byte) goalColsNeeded;
+        mazeAsByteArray[7] = (byte) goalColsModulo;
         int k = 8;
-        for(int i = 0; i < myMaze.length;i++)
-            for(int j = 0; j < myMaze[0].length; j++) {
-                mazeAsByteArray[k] = (byte)myMaze[i][j];
+        for (int i = 0; i < myMaze.length; i++)
+            for (int j = 0; j < myMaze[0].length; j++) {
+                mazeAsByteArray[k] = (byte) myMaze[i][j];
                 k++;
             }
         return mazeAsByteArray;
     }
 
-    public Maze(byte[] byteMaze){
-
-
-        int rows = (int)(byteMaze[0]*256 + byteMaze[1]);
-        int cols = (int)(byteMaze[2]*256 + byteMaze[3]);
+    /**
+     * get byte array and build a maze
+     *
+     * @param byteMaze - array of bytes
+     */
+    public Maze(byte[] byteMaze) {
+        int rows = byteMaze[0] * 256 + byteMaze[1];
+        int cols = byteMaze[2] * 256 + byteMaze[3];
         myMaze = new int[rows][cols];
-        int k=0;
-        for(;k<8;k++)
-            if(byteMaze[k]<0)
-                byteMaze[k]+=256;
-
-        for ( int i = 0; i < rows;i++) {
+        int k = 0;
+        for (; k < 8; k++)
+            if (byteMaze[k] < 0)
+                byteMaze[k] += 256;
+        for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                myMaze[i][j] = (int)byteMaze[k];
+                myMaze[i][j] = (int) byteMaze[k];
                 k++;
             }
         }
-        setStartPosition(new Position(0,0));
-        int actualGoalPosRow = byteMaze[4]*256+byteMaze[5];
-        int actualGoalPosCol = byteMaze[6]*256+byteMaze[7];
-        setGoalPosition(new Position(actualGoalPosRow,actualGoalPosCol));
+        setStartPosition(new Position(0, 0));
+        int actualGoalPosRow = byteMaze[4] * 256 + byteMaze[5];
+        int actualGoalPosCol = byteMaze[6] * 256 + byteMaze[7];
+        setGoalPosition(new Position(actualGoalPosRow, actualGoalPosCol));
 
-        if (byteMaze.length < 7)//TODO THINK
-        {
+        if (byteMaze.length < 7) {
+            //TODO THINK
         }
-//TODO avoid boring mazes such as we did before
-        /*if (row < 2)
-            row = 10;
-        if (column < 2)
-            column = 10;
-        */
     }
 
+    /*
+     * to string function
+     */
     public String toString() {
         String x;
-        x = startPosition.getColumnIndex()+ " " +startPosition.getRowIndex()+ " " +goalPosition.getRowIndex()+ " " +goalPosition.getColumnIndex() + " " + myMaze.length + myMaze[0].length;
+        x = startPosition.getColumnIndex() + " " + startPosition.getRowIndex() + " " + goalPosition.getRowIndex() + " " + goalPosition.getColumnIndex() + " " + myMaze.length + myMaze[0].length;
         return x;
-    }}
+    }
+}

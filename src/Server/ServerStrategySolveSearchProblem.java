@@ -1,11 +1,9 @@
 package Server;
 
-import IO.MyCompressorOutputStream;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.*;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
@@ -20,9 +18,9 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             Maze returnToClientMaze = (Maze) fromClient.readObject(); // read object (maze) from client
 
             String tempDirectoryPath = System.getProperty("java.io.tmpdir"); //create a temp direct
-            String uniqName = returnToClientMaze.toString(); //name of maze
+            String uniName = returnToClientMaze.toString(); //name of maze
 
-            File file = new File(tempDirectoryPath , uniqName); //create file from maze name
+            File file = new File(tempDirectoryPath , uniName); //create file from maze name
             if (file.exists()) { //if it exist , solve gets the maze data
                 FileInputStream fIn = new FileInputStream(file);
                 ObjectInputStream FileToReturn = new ObjectInputStream(fIn);
@@ -32,14 +30,20 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             else
             {
                 //solve maze
-                SearchableMaze searchableMaze = new SearchableMaze(returnToClientMaze); // create a new serachable maze
+                SearchableMaze searchableMaze = new SearchableMaze(returnToClientMaze); // create a new searchable maze
                 BreadthFirstSearch BFS = new BreadthFirstSearch();
                 solve = BFS.solve(searchableMaze);
+
+                FileOutputStream fileOut = new FileOutputStream(file);
+                ObjectOutputStream objectReturn = new ObjectOutputStream(fileOut);
+
+                objectReturn.writeObject(solve);
+                objectReturn.flush();
+                objectReturn.close();
+
             }
             toClient.writeObject(solve);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
