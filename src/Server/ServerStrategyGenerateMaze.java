@@ -24,13 +24,12 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             byte[] ReturnDoneMaze = returnToClientMaze.toByteArray();
             returnCompressedMaze.write(ReturnDoneMaze);
             toClient.writeObject(temp.toByteArray());
-            returnCompressedMaze.close();
-            temp.close();
+            returnCompressedMaze.flush();
+            toClient.flush();
 
 
         } catch (IOException | ClassNotFoundException | NumberFormatException e) {
             e.printStackTrace();
-
         }
     }
 }

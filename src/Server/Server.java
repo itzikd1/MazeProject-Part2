@@ -39,8 +39,8 @@ public class Server {
 
     private void serverStrategy() {
         try {
-            ThreadPoolExecutor x = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-            x.setCorePoolSize(Runtime.getRuntime().availableProcessors() * 2);
+            ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+            threadPool.setCorePoolSize(Runtime.getRuntime().availableProcessors() * 2);
             ServerSocket server = new ServerSocket(port);
             server.setSoTimeout(listeningInterval);
 //            System.out.println(String.format("Server started! (port: %s)", port));
@@ -48,7 +48,7 @@ public class Server {
                 try {
                     Socket clientSocket = server.accept(); // blocking call
 //                    System.out.println(String.format("Client excepted: %s", clientSocket.toString()));
-                    x.submit(new Thread(() -> {
+                    threadPool.submit(new Thread(() -> {
                                 handleClient(clientSocket);
                             })
                     );
@@ -58,6 +58,7 @@ public class Server {
                 }
             }
             server.close();
+            threadPool.shutdown();
         } catch (IOException e) {
             e.getStackTrace();
         }

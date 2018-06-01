@@ -40,10 +40,13 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
                 objectReturn.writeObject(solve);
                 objectReturn.flush();
-                objectReturn.close();
+
+
 
             }
             toClient.writeObject(solve);
+            toClient.close();
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
