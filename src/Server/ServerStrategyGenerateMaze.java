@@ -30,6 +30,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
 
         } catch (IOException e) {
             e.printStackTrace();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NumberFormatException e) {

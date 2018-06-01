@@ -54,6 +54,7 @@ public class Server {
                     );
                 } catch (SocketTimeoutException e) {
                     e.getStackTrace();
+//                    stop();
                 }
             }
             server.close();
