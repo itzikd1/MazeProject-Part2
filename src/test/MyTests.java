@@ -32,11 +32,9 @@ public class MyTests {
 // get the maze entrance
         Position startPosition = maze.getStartPosition();
 // print the position
-        System.out.println(String.format("Start Position: %s",
-                startPosition)); // format "{row,column}"
+        System.out.println(String.format("Start Position: %s", startPosition)); // format "{row,column}"
 // prints the maze exit position
-        System.out.println(String.format("Goal Position: %s",
-                maze.getGoalPosition()));
+        System.out.println(String.format("Goal Position: %s", maze.getGoalPosition()));
     }
 
 }

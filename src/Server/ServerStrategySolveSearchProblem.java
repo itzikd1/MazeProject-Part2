@@ -18,7 +18,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             Maze returnToClientMaze = (Maze) fromClient.readObject(); // read object (maze) from client
 
             String tempDirectoryPath = System.getProperty("java.io.tmpdir"); //create a temp direct
-            System.out.println(System.getProperty("java.io.tmpdir"));
+//            System.out.println(System.getProperty("java.io.tmpdir"));
             String uniName = returnToClientMaze.toString(); //name of maze
 
             File file = new File(tempDirectoryPath , uniName); //create file from maze name
