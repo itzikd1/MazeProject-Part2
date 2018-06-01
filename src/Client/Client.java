@@ -8,6 +8,13 @@ public class Client {
     private int serverPort;
     private IClientStrategy clientStrategy;
 
+    /**
+     * client class
+     *
+     * @param serverIP       - ip address
+     * @param serverPort     - port num
+     * @param clientStrategy - type of server
+     */
     public Client(InetAddress serverIP, int serverPort, IClientStrategy clientStrategy) {
         this.serverIP = serverIP;
         this.serverPort = serverPort;

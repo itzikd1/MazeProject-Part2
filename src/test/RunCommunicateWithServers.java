@@ -1,6 +1,5 @@
 package test;
 
-import Client.IClientStrategy;
 import IO.MyDecompressorInputStream;
 import Server.*;
 import Client.*;
@@ -14,9 +13,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-
-import static com.sun.deploy.trace.Trace.flush;
-
 public class RunCommunicateWithServers {
     public static void main(String[] args) throws InterruptedException {
 //Initializing servers
@@ -27,19 +23,20 @@ public class RunCommunicateWithServers {
         mazeGeneratingServer.start();
 
         //Communicating with servers
-        CommunicateWithServer_MazeGenerating();
-//        Thread[] table = new Thread[10];
-//        for (int i=0; i<table.length; i++) {
-//            table[i]=new Thread(() -> CommunicateWithServer_MazeGenerating());
-//            table[i].start();
-//        }
-//        for (int i=0; i<table.length; i++) {
-//            try {
-//                table[i].join(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+//        CommunicateWithServer_MazeGenerating();
+        Thread[] table = new Thread[5];
+        for (int i=0; i<table.length; i++) {
+            table[i]=new Thread(() -> CommunicateWithServer_MazeGenerating());
+            Thread.sleep(1000);
+            table[i].start();
+        }
+        for (int i=0; i<table.length; i++) {
+            try {
+                table[i].join(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 //Communicating with servers
         CommunicateWithServer_MazeGenerating();
 //        CommunicateWithServer_SolveSearchProblem();

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -16,12 +15,22 @@ public class Server {
     private IServerStrategy serverStrategy;
     private volatile boolean stop;
 
+    /**
+     * server class
+     *
+     * @param port - port of server
+     * @param listeningInterval - listing interval
+     * @param serverStrategy - strateft type
+     */
     public Server(int port, int listeningInterval, IServerStrategy serverStrategy) {
         this.port = port;
         this.listeningInterval = listeningInterval;
         this.serverStrategy = serverStrategy;
     }
 
+    /**
+     * start thread function
+     */
     public void start() {
         new Thread(() -> {
             serverStrategy();

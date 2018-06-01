@@ -2,10 +2,6 @@
 package test;
 
 import algorithms.mazeGenerators.*;
-import IO.*;
-
-import java.io.IOException;
-import java.io.OutputStream;
 
 public class MyTests {
 

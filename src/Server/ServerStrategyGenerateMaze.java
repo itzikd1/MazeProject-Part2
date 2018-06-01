@@ -5,7 +5,6 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class ServerStrategyGenerateMaze implements IServerStrategy {
 

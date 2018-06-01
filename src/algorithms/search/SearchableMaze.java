@@ -178,8 +178,7 @@ public class SearchableMaze implements ISearchable {
     @Override
     public boolean isVisited(AState visit) {
         if (visit != null && ((MazeState) visit).getRow() < maze.numOfRows() && ((MazeState) visit).getCol() < maze.numOfColumns()  && ((MazeState) visit).getRow() >= 0 && ((MazeState) visit).getCol() >= 0) {
-            boolean x = visitedMap[((MazeState) visit).getRow()][((MazeState) visit).getCol()];
-            return x;
+            return visitedMap[((MazeState) visit).getRow()][((MazeState) visit).getCol()];
         } else
             return false;
     }

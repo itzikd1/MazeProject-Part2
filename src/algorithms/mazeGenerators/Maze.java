@@ -1,8 +1,6 @@
 package algorithms.mazeGenerators;
 
 
-import java.util.ArrayList;
-
 public class Maze {
     private int[][] myMaze;
     private Position startPosition;
@@ -126,7 +124,7 @@ public class Maze {
 
     /**
      *
-     * @param calculateMe
+     * @param calculateMe - int to calculate
      * @return number of multipications needed to represent parameter +1
      */
     public int DivideBy256(int calculateMe){
@@ -203,7 +201,6 @@ public class Maze {
 
         if (byteMaze.length < 7)//TODO THINK
         {
-
         }
 //TODO avoid boring mazes such as we did before
         /*if (row < 2)

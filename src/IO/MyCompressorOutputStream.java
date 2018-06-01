@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class MyCompressorOutputStream extends OutputStream {
-    OutputStream out;
+    private OutputStream out;
 
 
     public MyCompressorOutputStream(OutputStream OPS) {
@@ -15,30 +15,45 @@ public class MyCompressorOutputStream extends OutputStream {
         out = OPS;
     }
 
+    /**
+     * write int, do nothing
+     *
+     * @param b - int num
+     */
     public void write(int b) {
 
     }
 
+    /**
+     * convery from byte array to byte
+     *
+     * @param ArryToConvert - array to convert
+     * @return byte after convertion
+     */
 
-    private byte convertByteArr(byte[] tmp) {
+    private byte convertByteArr(byte[] ArryToConvert) {
         int intNum = 0;
         double power = 0;
-        for (int i = tmp.length - 1; i >= 0; i--) {
-            intNum = intNum + tmp[i] * (int) Math.pow(2, power);
+        for (int i = ArryToConvert.length - 1; i >= 0; i--) {
+            intNum = intNum + ArryToConvert[i] * (int) Math.pow(2, power);
             power++;
         }
-        byte result = (byte) intNum;
-        return result;
+        return (byte) intNum;
     }
 
+    /**
+     * write to output stream
+     *
+     * @param b - write byte array
+     */
     public void write(byte[] b) {
         ArrayList<Byte> temp = new ArrayList<>();//byte[] answer size is unknown
         int j = 8;//here the maze's values start
         byte[] bitSend = new byte[8];
         while (j < b.length) {
             int count = 0;
-            int tempcheck = 0;
-            while (count < 8 && j < b.length) {
+            int tempcheck;
+            while (count < 8 && j < b.length) { //send first 8 details
                 bitSend[count] = b[j];
                 j++;
                 count++;
