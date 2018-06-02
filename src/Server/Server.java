@@ -46,7 +46,7 @@ public class Server {
         InputStream input = null;
         File file = new File("config.properties");
         try {
-            int core = 2; //default
+            int core = 2; //default TODO check if file empty
             if (file.length() != 0) { //if properties file empty, and hasnt been run yet
                 input = new FileInputStream("config.properties");
                 // load a properties file

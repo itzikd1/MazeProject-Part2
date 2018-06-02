@@ -37,7 +37,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
                     Type = new MyMazeGenerator();
             }
             else
-                Type = new MyMazeGenerator();
+                Type = new MyMazeGenerator(); //default
             int[] mazeProp = (int[]) fromClient.readObject();
             Maze returnToClientMaze = Type.generate(mazeProp[0], mazeProp[1]);
             byte[] ReturnDoneMaze = returnToClientMaze.toByteArray();
