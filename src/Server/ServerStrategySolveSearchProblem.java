@@ -10,6 +10,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
     @Override
     public void serverStrategy(InputStream inputStream, OutputStream outputStream) {
+        Server.Configurations.Conf();
         Properties prop = new Properties();
         InputStream input = null;
         File fileCheck = new File("config.properties");

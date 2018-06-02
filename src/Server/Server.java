@@ -2,10 +2,7 @@ package Server;
 
 import Server.IServerStrategy;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -42,6 +39,7 @@ public class Server {
     }
 
     private void serverStrategy() {
+        Server.Configurations.Conf();
         Properties prop = new Properties();
         InputStream input = null;
         File file = new File("config.properties");
@@ -93,6 +91,44 @@ public class Server {
 
     public void stop() {
         stop = true;
+    }
+
+    /**
+     * Configurations class
+     */
+
+    public static class Configurations {
+
+        private Configurations() {
+        }
+
+        public static void Conf()
+        {
+            Properties prop = new Properties();
+            OutputStream output = null;
+            try {
+                output = new FileOutputStream("config.properties");
+
+                // set the properties value
+                prop.setProperty("MazeAlgoType", "BreadthFirstSearch");
+                prop.setProperty("numberCores", "2");
+                prop.setProperty("MazeType", "MyMazeGenerator");
+
+                // save properties to project root folder
+                prop.store(output, null);
+
+            } catch (IOException io) {
+                io.printStackTrace();
+            } finally {
+                if (output != null) {
+                    try {
+                        output.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 }
 
