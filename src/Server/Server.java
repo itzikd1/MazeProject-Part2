@@ -2,10 +2,14 @@ package Server;
 
 import Server.IServerStrategy;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -18,9 +22,9 @@ public class Server {
     /**
      * server class
      *
-     * @param port - port of server
+     * @param port              - port of server
      * @param listeningInterval - listing interval
-     * @param serverStrategy - strategy type
+     * @param serverStrategy    - strategy type
      */
     public Server(int port, int listeningInterval, IServerStrategy serverStrategy) {
         this.port = port;
@@ -38,9 +42,19 @@ public class Server {
     }
 
     private void serverStrategy() {
+        Properties prop = new Properties();
+        InputStream input = null;
+        File file = new File("config.properties");
         try {
+            int core = 2; //default
+            if (file.length() != 0) { //if properties file empty, and hasnt been run yet
+                input = new FileInputStream("config.properties");
+                // load a properties file
+                prop.load(input);
+                core = Integer.parseInt(prop.getProperty("numberCores")); //get number of cores from config file
+            }
             ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-            threadPool.setCorePoolSize(Runtime.getRuntime().availableProcessors() * 2);
+            threadPool.setCorePoolSize(Runtime.getRuntime().availableProcessors() * core);
             ServerSocket server = new ServerSocket(port);
             server.setSoTimeout(listeningInterval);
 //            System.out.println(String.format("Server started! (port: %s)", port));
@@ -60,6 +74,8 @@ public class Server {
             server.close();
             threadPool.shutdown();
         } catch (IOException e) {
+            e.getStackTrace();
+        } catch (NumberFormatException e) {
             e.getStackTrace();
         }
     }
