@@ -107,7 +107,7 @@ public class Server {
             Properties prop = new Properties();
             OutputStream output = null;
             try {
-                output = new FileOutputStream("config.properties");
+                output = new FileOutputStream("Resources/config.properties");
 
                 // set the properties value
                 prop.setProperty("MazeAlgoType", "BreadthFirstSearch");
