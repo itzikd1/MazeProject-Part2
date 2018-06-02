@@ -73,9 +73,7 @@ public class Server {
             }
             server.close();
             threadPool.shutdown();
-        } catch (IOException e) {
-            e.getStackTrace();
-        } catch (NumberFormatException e) {
+        } catch (IOException | NumberFormatException e) {
             e.getStackTrace();
         }
     }

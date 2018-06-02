@@ -1,6 +1,6 @@
 package algorithms.mazeGenerators;
 
-
+//TODO go over all work and check javadocs
 import java.io.Serializable;
 
 public class Maze implements Serializable {
@@ -191,7 +191,7 @@ public class Maze implements Serializable {
         setGoalPosition(new Position(actualGoalPosRow, actualGoalPosCol));
 
         if (byteMaze.length < 7) {
-            //TODO THINK
+            //TODO take care of this
         }
     }
 
