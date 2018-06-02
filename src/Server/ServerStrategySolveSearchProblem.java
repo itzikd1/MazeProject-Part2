@@ -32,7 +32,9 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 solve = (Solution) FileToReturn.readObject();
                 FileToReturn.close();
             } else {
-                String mazeTypeSerach = "BFS"; //default
+                String mazeTypeSerach = "BreadthFirstSearch"; //default
+                SearchableMaze searchableMaze = new SearchableMaze(returnToClientMaze); // create a new searchable maze
+                ASearchingAlgorithm Type = null;
                 if (fileCheck.length() != 0) { //if properties file empty, and hasnt been run yet
                     input = new FileInputStream("config.properties");
                     // load a properties file
@@ -40,13 +42,12 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                     mazeTypeSerach = prop.getProperty("mazeType"); //get number of cores from config file
                 }
                 //solve maze
-                SearchableMaze searchableMaze = new SearchableMaze(returnToClientMaze); // create a new searchable maze
-                if 
-                BreadthFirstSearch BFS = new BreadthFirstSearch();
-                DepthFirstSearch DFS = new DepthFirstSearch();
-                BestFirstSearch = new BestFirstSearch();
-                ASearchingAlgorithm Type = new;
-
+                if (mazeTypeSerach.equals("DepthFirstSearch"))
+                    Type = new DepthFirstSearch();
+                else if (mazeTypeSerach.equals("BestFirstSearch"))
+                    Type = new BestFirstSearch();
+                else
+                    Type = new BreadthFirstSearch();
                 solve = Type.solve(searchableMaze);
 
                 FileOutputStream fileOut = new FileOutputStream(file);
