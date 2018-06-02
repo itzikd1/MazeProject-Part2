@@ -8,7 +8,6 @@ public class SimpleMazeGenerator extends AMazeGenerator {
      * creates a maze and makes sure it has a solution
      */
 
-    //TODO fix here, it does on big maze that you can't reach end
     @Override
     public Maze generate(int rows, int columns) {
         if (rows < 3) //if rows <2 then create default size of 10

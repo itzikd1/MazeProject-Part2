@@ -115,7 +115,6 @@ public class SearchableMaze implements ISearchable {
      * @param s - current state from user
      * @return list with all possible states
      */
-//TODO Need to take care of cost
     @Override
     public ArrayList<AState> getAllPossibleStates(AState s) {
         ArrayList<AState> temp = new ArrayList<AState>(); //array to keep possible states

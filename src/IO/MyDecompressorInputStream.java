@@ -26,8 +26,6 @@ public class MyDecompressorInputStream extends InputStream {
         return ans;
     }
 
-//TODO remember to do x.length - something because of %8
-
     /**
      * read from input stream
      *
