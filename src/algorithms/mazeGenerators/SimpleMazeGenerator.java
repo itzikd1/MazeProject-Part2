@@ -11,9 +11,9 @@ public class SimpleMazeGenerator extends AMazeGenerator {
     //TODO fix here, it does on big maze that you can't reach end
     @Override
     public Maze generate(int rows, int columns) {
-        if (rows < 2) //if rows <2 then create default size of 10
+        if (rows < 3) //if rows <2 then create default size of 10
             rows = 10;
-        if (columns < 2) //if columns <2 then create default size of 10
+        if (columns < 3) //if columns <2 then create default size of 10
             columns = 10;
         MyMaze = new Maze(rows, columns); //create new maze
         int MazeValue;
@@ -33,7 +33,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         Position start = new Position(MazeStartPoint, 0);
         MyMaze.setStartPosition(start);
         //end position is at corner on right bottom
-        Position end = new Position(rows - 1, columns - 1);
+        Position end = new Position(rows - 2, columns - 2);
         MyMaze.setGoalPosition(end);
         int i = MazeStartPoint, j = 0;
         int Direction;
