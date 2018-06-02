@@ -39,7 +39,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                     input = new FileInputStream("config.properties");
                     // load a properties file
                     prop.load(input);
-                    mazeTypeSerach = prop.getProperty("mazeType"); //get number of cores from config file
+                    mazeTypeSerach = prop.getProperty("MazeAlgoType"); //get algorithm type from config file
                 }
                 //solve maze
                 if (mazeTypeSerach.equals("DepthFirstSearch"))

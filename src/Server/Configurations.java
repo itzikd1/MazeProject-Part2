@@ -16,8 +16,9 @@ public class Configurations {
             output = new FileOutputStream("config.properties");
 
             // set the properties value
-            prop.setProperty("mazeType", "BreadthFirstSearch");
+            prop.setProperty("MazeAlgoType", "BreadthFirstSearch");
             prop.setProperty("numberCores", "2");
+            prop.setProperty("MazeType", "MyMazeGenerator");
 
             // save properties to project root folder
             prop.store(output, null);
