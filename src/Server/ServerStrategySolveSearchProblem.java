@@ -50,6 +50,8 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                     prop.load(input);
                     mazeTypeSerach = prop.getProperty("MazeAlgoType"); //get algorithm type from config file
                 }
+                if (mazeTypeSerach == null)
+                    mazeTypeSerach="BreadthFirstSearch";
                 //solve maze
                 if (mazeTypeSerach.equals("DepthFirstSearch"))
                     Type = new DepthFirstSearch();

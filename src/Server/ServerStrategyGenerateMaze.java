@@ -32,6 +32,8 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
                 // load a properties file
                 prop.load(input);
                 mazeType = prop.getProperty("MazeType"); //get algorithm type from config file
+                if (mazeType==null)
+                    mazeType="MyMazeGenerator";
                 if (mazeType.equals("SimpleMazeGenerator"))
                     Type = new SimpleMazeGenerator();
                 else

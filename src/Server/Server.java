@@ -102,21 +102,23 @@ public class Server {
         private Configurations() {
         }
 
-        public static void Conf()
-        {
-            Properties prop = new Properties();
+        public static void Conf() {
             OutputStream output = null;
+            InputStream input = null;
             try {
-                output = new FileOutputStream("Resources/config.properties");
+                input = Server.class.getClassLoader().getResourceAsStream("config.properties");
+                if (input == null) {
+                    output = new FileOutputStream("Resources/config.properties");
+                    Properties prop = new Properties();
 
-                // set the properties value
-                prop.setProperty("MazeAlgoType", "BreadthFirstSearch");
-                prop.setProperty("numberCores", "2");
-                prop.setProperty("MazeType", "MyMazeGenerator");
+                    // set the properties value
+                    prop.setProperty("MazeAlgoType", "BreadthFirstSearch");
+                    prop.setProperty("numberCores", "2");
+                    prop.setProperty("MazeType", "MyMazeGenerator");
 
-                // save properties to project root folder
-                prop.store(output, null);
-
+                    // save properties to project root folder
+                    prop.store(output, null);
+                }
             } catch (IOException io) {
                 io.printStackTrace();
             } finally {
