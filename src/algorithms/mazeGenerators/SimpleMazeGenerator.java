@@ -10,9 +10,9 @@ public class SimpleMazeGenerator extends AMazeGenerator {
 
     @Override
     public Maze generate(int rows, int columns) {
-        if (rows < 3) //if rows <2 then create default size of 10
+        if (rows < 5) //if rows <2 then create default size of 10
             rows = 10;
-        if (columns < 3) //if columns <2 then create default size of 10
+        if (columns < 5) //if columns <2 then create default size of 10
             columns = 10;
         MyMaze = new Maze(rows, columns); //create new maze
         int MazeValue;

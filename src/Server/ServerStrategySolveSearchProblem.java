@@ -25,6 +25,12 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             String tempDirectoryPath = System.getProperty("java.io.tmpdir"); //create a temp direct
 //            System.out.println(System.getProperty("java.io.tmpdir"));
             String uniName = returnToClientMaze.toString(); //name of maze
+            byte temp [] = returnToClientMaze.toByteArray();
+            String firstLine="";
+            for (int k=8; k<50; k++)
+                if (k<temp.length)
+                    firstLine+=temp[k];
+            uniName=uniName + "-" + firstLine;
 
             File file = new File(tempDirectoryPath, uniName); //create file from maze name
             if (file.exists()) { //if it exist , solve gets the maze data

@@ -200,7 +200,7 @@ public class Maze implements Serializable {
      */
     public String toString() {
         String x;
-        x = startPosition.getColumnIndex() + " " + startPosition.getRowIndex() + " " + goalPosition.getRowIndex() + " " + goalPosition.getColumnIndex() + " " + myMaze.length + myMaze[0].length;
+        x = startPosition.getColumnIndex() + " " + startPosition.getRowIndex() + " " + goalPosition.getRowIndex() + " " + goalPosition.getColumnIndex() + " " + myMaze.length + " " + myMaze[0].length;
         return x;
     }
 }
