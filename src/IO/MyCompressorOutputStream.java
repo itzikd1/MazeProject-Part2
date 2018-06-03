@@ -64,7 +64,7 @@ public class MyCompressorOutputStream extends OutputStream {
                 byte[] bitSend2 = new byte[tempcheck];
                 for (int i = 0; i < bitSend2.length; i++)
                     bitSend2[i] = bitSend[i];
-                temp.add(convertByteArr(bitSend2)); //TODO maybe -1
+                temp.add(convertByteArr(bitSend2));
             }
         }
         byte[] compressedMaze = new byte[8 + temp.size()];//8 cells for maze' details and rest for 0,1 repetitions

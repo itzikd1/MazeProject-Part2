@@ -10,10 +10,9 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
     @Override
     public void serverStrategy(InputStream inputStream, OutputStream outputStream) {
-        Server.Configurations.Conf();
-        Properties prop = new Properties();
+        Properties prop = new Properties(); // new Properties type
         InputStream input = null;
-        File fileCheck = new File("config.properties");
+        File fileCheck = new File("config.properties"); //try to get config file
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inputStream);
             ObjectOutputStream toClient = new ObjectOutputStream(outputStream);
@@ -41,6 +40,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 solve = (Solution) FileToReturn.readObject();
                 FileToReturn.close();
             } else {
+                Server.Configurations.Conf(); //create config file if not exthist
                 String mazeTypeSerach = "BreadthFirstSearch"; //default
                 SearchableMaze searchableMaze = new SearchableMaze(returnToClientMaze); // create a new searchable maze
                 ASearchingAlgorithm Type = null;
@@ -50,6 +50,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                     prop.load(input);
                     mazeTypeSerach = prop.getProperty("MazeAlgoType"); //get algorithm type from config file
                 }
+                //get from user the type of maze from prop file
                 if (mazeTypeSerach == null)
                     mazeTypeSerach="BreadthFirstSearch";
                 //solve maze

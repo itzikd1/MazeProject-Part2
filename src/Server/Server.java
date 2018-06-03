@@ -39,18 +39,19 @@ public class Server {
     }
 
     private void serverStrategy() {
-        Server.Configurations.Conf();
         Properties prop = new Properties();
         InputStream input = null;
         File file = new File("config.properties");
         try {
-            int core = 2; //default TODO check if file empty
+            int core = 2; //default
             if (file.length() != 0) { //if properties file empty, and hasnt been run yet
                 input = new FileInputStream("config.properties");
                 // load a properties file
                 prop.load(input);
                 core = Integer.parseInt(prop.getProperty("numberCores")); //get number of cores from config file
             }
+            else
+                Server.Configurations.Conf();
             ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
             threadPool.setCorePoolSize(Runtime.getRuntime().availableProcessors() * core);
             ServerSocket server = new ServerSocket(port);
@@ -98,6 +99,7 @@ public class Server {
      */
 
     public static class Configurations {
+        //TODO fix config restart
 
         private Configurations() {
         }
@@ -106,10 +108,10 @@ public class Server {
             OutputStream output = null;
             InputStream input = null;
             try {
-                input = Server.class.getClassLoader().getResourceAsStream("config.properties");
-                if (input == null) {
+                input = Server.class.getClassLoader().getResourceAsStream("Resources/config.properties");//get file
+                if (input == null) {//check if file exthist
                     output = new FileOutputStream("Resources/config.properties");
-                    Properties prop = new Properties();
+                    Properties prop = new Properties(); //create new prop file
 
                     // set the properties value
                     prop.setProperty("MazeAlgoType", "BreadthFirstSearch");

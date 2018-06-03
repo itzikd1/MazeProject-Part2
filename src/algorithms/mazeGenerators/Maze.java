@@ -1,6 +1,5 @@
 package algorithms.mazeGenerators;
 
-//TODO go over all work and check javadocs
 import java.io.Serializable;
 
 public class Maze implements Serializable {

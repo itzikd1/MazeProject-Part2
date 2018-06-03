@@ -45,7 +45,10 @@ public class MyDecompressorInputStream extends InputStream {
             b[i] = fromUser.remove(0);
         int row = b[0] * 256 + b[1]; //set size of row
         int col = b[2] * 256 + b[3]; // set size of column
-
+        if (row<0)
+            row = row+256;
+        if (col<0)
+            col=col+256;
         byte[] byteArrayFinal = new byte[row * col + 8];
         int i = 8;
         while (fromUser.size() != 1) {

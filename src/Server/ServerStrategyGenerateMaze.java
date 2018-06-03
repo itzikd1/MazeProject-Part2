@@ -13,7 +13,6 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
 
     @Override
     public void serverStrategy(InputStream inputStream, OutputStream outputStream) {
-        Server.Configurations.Conf();
         Properties prop = new Properties();
         InputStream input = null;
         File fileCheck = new File("config.properties");
@@ -30,7 +29,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             if (fileCheck.length() != 0) { //if properties file empty, and hasnt been run yet
                 input = new FileInputStream("config.properties");
                 // load a properties file
-                prop.load(input);
+                prop.load(input); //load config file to prop
                 mazeType = prop.getProperty("MazeType"); //get algorithm type from config file
                 if (mazeType==null)
                     mazeType="MyMazeGenerator";
@@ -40,10 +39,14 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
                     Type = new MyMazeGenerator();
             }
             else
+            {
+                Server.Configurations.Conf();
                 Type = new MyMazeGenerator(); //default
-            int[] mazeProp = (int[]) fromClient.readObject();
-            Maze returnToClientMaze = Type.generate(mazeProp[0], mazeProp[1]);
-            byte[] ReturnDoneMaze = returnToClientMaze.toByteArray();
+            }
+            int[] mazeProp = (int[]) fromClient.readObject(); //get maze size , 2 size array
+            Maze returnToClientMaze = Type.generate(mazeProp[0], mazeProp[1]); // create maze
+            byte[] ReturnDoneMaze = returnToClientMaze.toByteArray(); //make it byte array
+            //write back to user
             returnCompressedMaze.write(ReturnDoneMaze);
             toClient.writeObject(temp.toByteArray());
             returnCompressedMaze.flush();
